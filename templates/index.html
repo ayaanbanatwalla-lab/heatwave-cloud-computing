@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heatwave Early Warning (Prototype)</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:560px;margin:24px auto;padding:0 16px;color:#222}
+label{display:block;margin-top:10px;font-size:14px}input,select,button{width:100%;padding:8px;margin-top:4px;box-sizing:border-box;font-size:15px}
+button{background:#b3261e;color:#fff;border:0;border-radius:6px;margin-top:16px;cursor:pointer}
+#out{margin-top:20px;padding:14px;border-radius:8px;display:none}
+.Normal{background:#e6f4ea}.Heatwave{background:#fff3cd}.Severe{background:#fde0dd}
+small{color:#666}
+</style></head><body>
+<h2>Heatwave Early Warning</h2><small>Educational prototype · synthetic data · not an official warning</small>
+<form id="f">
+<label>Region<select name="region">{% for r in regions %}<option>{{r}}</option>{% endfor %}</select></label>
+<label>Date<input type="date" name="date" value="2026-05-20"></label>
+<label>Max temp today (°C)<input name="temp_today" value="46"></label>
+<label>Max temp yesterday (°C)<input name="temp_yesterday" value="45"></label>
+<label>Max temp 2 days ago (°C)<input name="temp_2days_ago" value="44"></label>
+<button>Predict tomorrow's risk</button></form>
+<div id="out"></div>
+<script>
+document.getElementById('f').onsubmit=async e=>{e.preventDefault();
+const body=Object.fromEntries(new FormData(e.target));
+const r=await fetch('/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+const j=await r.json(),o=document.getElementById('out');o.style.display='block';
+if(!r.ok){o.className='Severe';o.textContent='Error: '+j.error;return}
+o.className=j.risk_level.split(' ')[0];
+o.innerHTML=`<b>${j.risk_level}</b> — predicted tomorrow max ${j.predicted_next_day_tmax_c} °C (normal ${j.normal_tmax_c} °C)<p>${j.alert}</p><small>Served by: ${j.served_by}<br>${j.disclaimer}</small>`;};
+</script></body></html>

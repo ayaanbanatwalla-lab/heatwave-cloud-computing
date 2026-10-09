@@ -1,0 +1,10 @@
+[PASS] valid hot day            HTTP 200 -> Severe Heatwave (pred 46.3 C)
+[PASS] valid mild day           HTTP 200 -> Normal (pred 26.8 C)
+[PASS] valid hills region       HTTP 200 -> Severe Heatwave (pred 33.6 C)
+[PASS] INVALID text temp        HTTP 400 -> temp_today must be a number
+[PASS] INVALID negative temp    HTTP 400 -> temp_today must be between -10 and 60 degrees C
+[PASS] INVALID region           HTTP 400 -> region must be one of ['Northwest', 'Central', 'East', 'Northeast', 'South Peninsula', 'West Coast', 'Hills']
+[PASS] INVALID date             HTTP 400 -> date must be YYYY-MM-DD
+[PASS] INVALID missing field    HTTP 400 -> temp_yesterday must be a number
+
+8/8 passed

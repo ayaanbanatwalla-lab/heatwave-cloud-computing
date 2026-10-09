@@ -1,0 +1,35 @@
+{
+  "hybrid_accuracy": 0.9862,
+  "hybrid_macro_F1": 0.6467,
+  "train_rows": 20272,
+  "test_rows": 5068,
+  "regressor_MAE_C": 0.935,
+  "persistence_baseline_MAE_C": 0.98,
+  "classifier_accuracy": 0.9718,
+  "classifier_macro_F1": 0.6104,
+  "rule_baseline_accuracy": 0.986,
+  "rule_baseline_macro_F1": 0.6884,
+  "confusion_matrix": [
+    [
+      4866,
+      59,
+      51
+    ],
+    [
+      5,
+      22,
+      8
+    ],
+    [
+      14,
+      6,
+      37
+    ]
+  ],
+  "class_counts_test": {
+    "0": 4976,
+    "1": 35,
+    "2": 57
+  },
+  "trained_at": "2026-10-08 18:10:24"
+}
